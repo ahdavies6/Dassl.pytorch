@@ -132,15 +132,17 @@ class DataManager:
             )
 
         # Build test_loader
-        test_loader = build_data_loader(
-            cfg,
-            sampler_type=cfg.DATALOADER.TEST.SAMPLER,
-            data_source=dataset.test,
-            batch_size=cfg.DATALOADER.TEST.BATCH_SIZE,
-            tfm=tfm_test,
-            is_train=False,
-            dataset_wrapper=dataset_wrapper,
-        )
+        test_loader = None
+        if dataset.test:
+            test_loader = build_data_loader(
+                cfg,
+                sampler_type=cfg.DATALOADER.TEST.SAMPLER,
+                data_source=dataset.test,
+                batch_size=cfg.DATALOADER.TEST.BATCH_SIZE,
+                tfm=tfm_test,
+                is_train=False,
+                dataset_wrapper=dataset_wrapper,
+            )
 
         # Attributes
         self._num_classes = dataset.num_classes
